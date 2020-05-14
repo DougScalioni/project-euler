@@ -11,10 +11,10 @@ def is_prime_so_far(n, primes_so_far):
 def primes_up_to(n):
     primes = [2]
     i = 2
-    while i < n:
-        while not is_prime_so_far(i, primes):
-            i += 1
-        primes.append(i)
+    while i <= n:
+        if is_prime_so_far(i, primes):
+            primes.append(i)
+        i += 1
     return primes
 
 
