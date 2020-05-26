@@ -35,13 +35,7 @@ def draw(line):
 
 
 def straight(hand):
-    values = []
-    for card in hand:
-        c = card[0]
-        c = cards_value[c]
-        values.append(c)
-    values.sort()
-    print(values)
+    values = get_values(hand)
     for i in range(0, 4):
         if values[i] != (values[i + 1] - 1):
             return False
@@ -73,25 +67,31 @@ def royal_flush(hand):
         return True
 
 
-def n_kind(n, hand):
+def get_values(hand):
     values = []
     for card in hand:
         c = card[0]
         c = cards_value[c]
         values.append(c)
     values.sort()
+    return values
+
+
+def n_kind(n, hand):
+    values = get_values(hand)
     for i in range(len(hand) - n + 1):
         r = True
         for j in range(n - 1):
             if values[i + j] != values[i + j + 1]:
                 r = False
         if r:
-            return True
-    return False
+            return r, values[0:i]+values[i+n:]
+    return r
 
-def two_pairs():
+#def two_pairs():
 
 
 
 a, b = draw(test_line)
-print(n_kind(3, a))
+print(a)
+print(n_kind(2, a))
