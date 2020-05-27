@@ -25,8 +25,8 @@ cards_value = {
 }
 
 
-def draw(line):
-    cards = line.split(' ')
+def draw(ln):
+    cards = ln.split(' ')
     hand_p1 = cards[0:5]
     hand_p2 = cards[5:10]
     return hand_p1, hand_p2
@@ -70,15 +70,13 @@ def three_of_a_kind(hand):
 
 def straight(hand):
     values = get_values(hand)
-    values.sort(reverse=False)
     for i in range(0, 4):
-        if values[i] != (values[i + 1] - 1):
+        if values[i] - values[i + 1] != 1:
             return False, 0
     return True, highest_card(hand)[1]
 
 
 def flush(hand):
-    # check if they are all the same suit
     suit = hand[0][1]
     for card in hand:
         if card[1] != suit:
@@ -89,7 +87,7 @@ def flush(hand):
 def full_house(hand):
     pair, tb2 = one_pair(hand)
     three, tb3 = three_of_a_kind(hand)
-    return pair and three, tb3
+    return pair and three, tb3+tb2/15
 
 
 def four_of_a_kind(hand):
@@ -108,7 +106,7 @@ def straight_flush(hand):
 
 
 def royal_flush(hand):
-    if not straight_flush(hand):
+    if not straight_flush(hand)[0]:
         return False, 0
     suit = hand[0][1]
     if 'A' + suit not in hand:
@@ -167,21 +165,20 @@ def compare_hands(p1, p2):
     if p1[i][0] and p2[i][0]:
         return p1[i][1] > p2[i][1]
     else:
-        print(p1[i][0], p2[i][0])
         return p1[i][0] > p2[i][0]
 
 
-print(len(lines))
 player1_wins = 0
 player2_wins = 0
 for line in lines:
     player1, player2 = draw(line)
     print(player1, player2)
     if compare_hands(player1, player2):
-        print('player1 wins')
         player1_wins += 1
+        print("player1")
     else:
         player2_wins += 1
+        print("player2")
 print(player1_wins)
 print(player2_wins)
 
