@@ -2,10 +2,10 @@ file = open('poker.txt', 'r').read()
 lines = file.split('\n')
 
 suits_value = {
-    'C': 1,
-    'D': 2,
-    'H': 3,
-    'S': 4
+    'C': 0,
+    'D': 1,
+    'H': 2,
+    'S': 3
 }
 
 cards_value = {
